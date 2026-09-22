@@ -1,5 +1,5 @@
 # Deep Q-Networks: relatório experimental
-_Gustavo Novack (novack@discente.ufg.br). Trabalho individual. Fork com o `algorithms/dqn.py` completo: https://github.com/Novack-IA/t-zero-learning_
+_Dupla: Gustavo Novack (novack@discente.ufg.br) e Davi de Souza Andrade (davisouza@discente.ufg.br). Fork com o `algorithms/dqn.py` completo: https://github.com/Novack-IA/t-zero-learning_
 _Ambiente: CartPole-v1, 500.000 passos por run, CPU. Duas seeds (1 e 2) em toda configuração de toda varredura. As curvas mostram a média das duas seeds e a faixa sombreada cobre o intervalo entre elas; `td_loss` e `q_values` aparecem suavizados por média móvel de 40 pontos (1 ponto = 100 passos). As métricas foram registradas localmente em CSV, com o mesmo conjunto de séries que o harness envia ao wandb, e os gráficos foram gerados por `scripts/dqn_assignment/make_figures.py`; os scripts de varredura e de plotagem estão no fork._
 
 ## Implementação (Partes 1 e 2)

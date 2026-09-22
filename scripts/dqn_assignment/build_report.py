@@ -72,7 +72,7 @@ def build():
         str(OUT), pagesize=A4,
         leftMargin=1.9 * cm, rightMargin=1.9 * cm,
         topMargin=1.3 * cm, bottomMargin=1.2 * cm,
-        title="Relatorio DQN", author="Gustavo Novack",
+        title="Relatorio DQN", author="Gustavo Novack; Davi de Souza Andrade",
     )
     doc.build(story)
     print(f"wrote {OUT}")
