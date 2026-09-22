@@ -123,7 +123,14 @@ class ReplayBuffer:
 
         """
         # ==================== YOUR CODE HERE (Part 1a) ====================
-        raise NotImplementedError("Implement ReplayBuffer.add")
+        self.observations[self.pos] = obs
+        self.next_observations[self.pos] = next_obs
+        self.actions[self.pos] = action
+        self.rewards[self.pos] = reward
+        self.dones[self.pos] = done
+        # circular write head: wraps back to 0 so the oldest slot is reused
+        self.pos = (self.pos + 1) % self.capacity
+        self.size = min(self.size + 1, self.capacity)
         # ==================================================================
 
     def sample(self, batch_size: int) -> Batch:
@@ -135,7 +142,16 @@ class ReplayBuffer:
 
         """
         # ==================== YOUR CODE HERE (Part 1b) ====================
-        raise NotImplementedError("Implement ReplayBuffer.sample")
+        # only the first self.size slots hold real transitions
+        idx = np.random.randint(0, self.size, size=batch_size)
+        to_t = lambda a: torch.as_tensor(a[idx], device=self.device)
+        return Batch(
+            observations=to_t(self.observations),
+            actions=to_t(self.actions),
+            next_observations=to_t(self.next_observations),
+            rewards=to_t(self.rewards),
+            dones=to_t(self.dones),
+        )
         # ==================================================================
 
 
@@ -144,7 +160,13 @@ def compute_td_targets(target_network, batch: Batch, gamma: float) -> torch.Tens
 
     """
     # ===================== YOUR CODE HERE (Part 2) =====================
-    raise NotImplementedError("Implement compute_td_targets")
+    # greedy value of the next state under the frozen target network
+    target_max, _ = target_network(batch.next_observations).max(dim=1)
+    # flatten (B,1) -> (B,) first: otherwise broadcasting yields a (B,B) target
+    rewards = batch.rewards.flatten()
+    dones = batch.dones.flatten()
+    # bootstrapping is switched off exactly at true terminations
+    return rewards + gamma * target_max * (1.0 - dones)
     # ===================================================================
 
 
