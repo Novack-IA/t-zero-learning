@@ -1,0 +1,26 @@
+base_s1|seed=1
+base_s2|seed=2
+q1_tnf1_s1|dqn.target_network_frequency=1 seed=1
+q1_tnf1_s2|dqn.target_network_frequency=1 seed=2
+q1_tnf100_s1|dqn.target_network_frequency=100 seed=1
+q1_tnf100_s2|dqn.target_network_frequency=100 seed=2
+q1_tnf5000_s1|dqn.target_network_frequency=5000 seed=1
+q1_tnf5000_s2|dqn.target_network_frequency=5000 seed=2
+q2_buf500_s1|dqn.buffer_size=500 seed=1
+q2_buf500_s2|dqn.buffer_size=500 seed=2
+q2_buf2000_s1|dqn.buffer_size=2000 seed=1
+q2_buf2000_s2|dqn.buffer_size=2000 seed=2
+q2_buf200000_s1|dqn.buffer_size=200000 seed=1
+q2_buf200000_s2|dqn.buffer_size=200000 seed=2
+q3_ef002_s1|dqn.exploration_fraction=0.02 seed=1
+q3_ef002_s2|dqn.exploration_fraction=0.02 seed=2
+q3_ef020_s1|dqn.exploration_fraction=0.2 seed=1
+q3_ef020_s2|dqn.exploration_fraction=0.2 seed=2
+q3_ef090_s1|dqn.exploration_fraction=0.9 seed=1
+q3_ef090_s2|dqn.exploration_fraction=0.9 seed=2
+q2_buf128_s1|dqn.buffer_size=128 seed=1
+q2_buf128_s2|dqn.buffer_size=128 seed=2
+q2_buf1000_s1|dqn.buffer_size=1000 seed=1
+q2_buf1000_s2|dqn.buffer_size=1000 seed=2
+q2_buf32_s1|dqn.buffer_size=32 seed=1
+q2_buf32_s2|dqn.buffer_size=32 seed=2
