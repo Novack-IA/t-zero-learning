@@ -1,0 +1,30 @@
+# A2C on LunarLander-v3 — the baseline for the PPO vs A2C comparison (Part 5).
+# Same 2M environment-step budget as the final PPO config. Tuned from
+# a2c_cartpole: num_steps 5 -> 32, learning_rate 7e-4 -> 3e-4, gamma 0.99 ->
+# 0.999 (the first attempt, with the CartPole values, ended at -108).
+
+algorithm: a2c
+env_id: LunarLander-v3
+seed: 1
+cuda: false
+total_timesteps: 2000000
+num_envs: 16
+
+track: true
+capture_video: true
+save_model: true
+checkpoint_every: 0
+
+network: DiscreteActorCritic
+network_kwargs:
+  activation: Tanh
+  hidden_layers_size: 64
+
+a2c:
+  learning_rate: 3.0e-4
+  num_steps: 32
+  gamma: 0.999
+  vf_coef: 0.5
+  ent_coef: 0.01
+  max_grad_norm: 0.5
+  use_baseline: true

@@ -1,0 +1,41 @@
+# PPO assignment — LunarLander-v3, FINAL config (Part 4).
+#
+# Result: eval/mean_return 279.3 / 207.3 and episodic_return_mean_last100
+# 257.0 / 230.7 on seeds 1 and 2, within the 2M environment-step budget.
+# Every change relative to configs/ppo_lunarlander.yml is justified in the
+# report (scripts/ppo_assignment/report.md).
+#
+#   python train.py --config ppo_lunarlander_final --override seed=2
+
+algorithm: ppo
+env_id: LunarLander-v3
+seed: 1
+cuda: false
+total_timesteps: 2000000   # was 1000000 — the budget ceiling; 200 is only crossed at ~850k
+num_envs: 8                # was 4  -> batch = 8 * 256 = 2048 (was 512)
+
+track: true
+capture_video: true
+save_model: true
+checkpoint_every: 0
+
+network: DiscreteActorCritic
+network_kwargs:
+  activation: Tanh
+  hidden_layers_size: 64
+
+ppo:
+  learning_rate: 1.0e-3    # was 2.5e-4 — clipfrac ~0.004 meant the policy barely moved
+  anneal_lr: true
+  num_steps: 256           # was 128 — a LunarLander episode is hundreds of steps long
+  gamma: 0.999             # was 0.99 — the +100 landing bonus arrives ~1000 steps in
+  gae_lambda: 0.98         # was 0.95 — lean less on a bootstrap over a longer horizon
+  num_minibatches: 4
+  update_epochs: 10        # was 4 — clipping was inactive, so each rollout was underused
+  norm_adv: true
+  clip_coef: 0.2
+  clip_vloss: true
+  ent_coef: 0.01
+  vf_coef: 0.5
+  max_grad_norm: 0.5
+  target_kl: null
